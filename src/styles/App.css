@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.App {
+    width: 800px;
+}
+
+header {
+    background-color: darkgray;
+    padding: 1rem 0;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+header>a{
+    color: white;
+    text-decoration: none;
+    padding: 0 1rem;    
+}
