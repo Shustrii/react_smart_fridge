@@ -9,12 +9,26 @@ function Navbar(){
     return(
         <>
     <header>
-        <Link to='/'>Products</Link>
-        <Link to='/recipes'>Recipes</Link>
-        <Link to='fridge'>Fridge</Link>
+        <div className='All_header_menu'>
+            <div className='Logo'>
+                Меню
+            </div>
+            <div className='Top_menu'>
+                <Link to='/'>Домашня сторінка</Link>
+                <Link to='/products'>Всі продукти</Link>
+                <Link to='/recipes'>Всі рецепти</Link>
+                <Link to='/fridge'>Ваш холодильник</Link>
+            </div>
+        </div>
+       
+        
     </header>
-    <Outlet/>
-    <footer>2023</footer>
+    
+    <main>
+        <Outlet/>
+    </main>
+
+    <footer >2023</footer>
     </>
     )
 }

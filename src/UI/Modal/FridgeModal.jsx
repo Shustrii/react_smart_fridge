@@ -24,11 +24,11 @@ const FridgeModal = ({product, setProduct, selectedMeasure, productsNotInFr, sho
     return(
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Додавання продукту у холодильник</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Product name</Form.Label>
+            <Form.Label>Назва продукту</Form.Label>
             <Select 
                 //value={fridgeProducts.product_id} 
               defaultValue={{product_id: product.product_id, product_name: product.product_name}}
@@ -49,12 +49,12 @@ const FridgeModal = ({product, setProduct, selectedMeasure, productsNotInFr, sho
 
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Quantity</Form.Label>
+            <Form.Label>Кількість</Form.Label>
             <Form.Control type="number" placeholder="enter quantity" defaultValue={product.quantity}
             onChange={(e) => setProduct({...product, quantity: e.target.value})}/>
         </Form.Group>
         <Form.Group>
-          <Form.Label>Measure</Form.Label>
+          <Form.Label>В чому вимірюється</Form.Label>
           <Select aria-label="Default select example" 
           //value={product.measure_id} 
           options={selectedMeasure}
@@ -81,10 +81,10 @@ const FridgeModal = ({product, setProduct, selectedMeasure, productsNotInFr, sho
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Закрити
           </Button>
           <Button variant="primary" onClick={(e)=>addProduct(e)}>
-            Save Changes
+            Зберегти зміни
           </Button>
         </Modal.Footer>
       </Modal>

@@ -217,58 +217,94 @@ function ProductToRecipe(){
               <td>{product.product_name}</td>
               <td>{product.measure_name}</td>
               <td>{product.quantity}</td>
-              <td>
-              <Button variant='primary'
+              <td className="btn_group_table">
+              <div className="edit">
+              <Button variant=''
+              className='edit-button ed-btn'
               onClick={() => {handleUpdate(product)}}
-              >Edit</Button>
-              <Button variant="secondary"
+              >Редагувати</Button>
+              </div>
+              <div className="delete">
+              <Button variant=""
+              className="custom-btn btn-5"
               onClick={()=>{deleteProduct(product)}}
-              >Delete</Button>
+              >Видалити</Button>
+              </div>
               </td>
             </tr>
           )
         })
       }
+
+
+      const[value, setValue] = useState('');
     
       return(
 
-        <div>
-        <Button variant="primary" onClick={handleRecipeCreate}>
-        Add new recipe
+        <div className="App">
+        <Button className='adding-button-top btn-add-top' variant="" onClick={handleRecipeCreate}>
+        Додати новий рецепт
         </Button>
+        <hr style={{margin: '15px 0'}}/>
+
+        <form className="seach-form">
+        <input 
+        className="search"
+        type="text"
+        placeholder='Пошук рецепта'
+        onChange={(event)=>setValue(event.target.value)}
+
+        />
+      </form>
         <ProductToRecipeModal pShow={pShow} handlePClose={handlePClose} product={product} prNotInRecipe={prNotInRecipe} selectedMeasure={selectedMeasure} setProduct={setProduct} onChangeProductSelect={onChangeProductSelect} addProduct={addProduct}/>
         <RecipeModal rShow={rShow} handleClose={handleClose} recipe={recipe} setRecipe={setRecipe} addNewRecipe={addNewRecipe}/>
         <ValidateRecipeModal vrShow={vrShow} handleVRClose={handleVRClose} validateProductRecipe={validateProductRecipe}/>
-        <Accordion>
-        {recipes.map((recipe)=>{
+        <Accordion >
+        {recipes.filter(recip=> recip.recipe.toLowerCase().includes(value.toLowerCase())).map((recipe)=>{
           return(
-            <Accordion.Item eventKey={recipe.id} key={recipe.id}>
-              <Accordion.Header>{recipe.recipe}
-              <div>
-               
-                <Button variant='primary'
+            <Accordion.Item  eventKey={recipe.id} key={recipe.id} >
+              <Accordion.Header >
+                <div className="recipe-name">{recipe.recipe}</div>
+              <div className="buttons_ptr_container">
+               <div className="edit">
+                <Button className='edit-button ed-btn' variant=''
                 onClick={() => {handleRecipeUpdate(recipe)}}
-                >Edit</Button>
-                <Button variant="secondary"
+                >Редагувати</Button>
+                </div>
+                <div className="delete">
+                  <Button variant=""
                 onClick={()=>{deleteRecipe(recipe)}}
-                >Delete</Button>
+                className="custom-btn btn-5"
+                >Видалити</Button>
+                </div>
+                
                 </div>
 
                 
                 
 
               </Accordion.Header>            
-              <Accordion.Body onEnter={() => {getAllProducts(recipe)}}>
-              <Button variant="primary" onClick={() => handleProductInsert(recipe)}>
-                  Add new product
-                </Button>
-                <Button variant="" onClick={()=>{validateRecipe(recipe)}}>Make it</Button>
-                <Table  striped bordered hover size="sm">
+              <Accordion.Body onEnter={() => {getAllProducts(recipe)}} >
+                <div className="">
+                  <div className="add-prod">
+                    <button className="add-new-product-to-recipe btn-add" onClick={() => handleProductInsert(recipe)}>
+                  Додати новий продукт
+                </button>
+                </div>
+                  <div className="make-rec">
+                <button className="make-it btn-make" onClick={()=>{validateRecipe(recipe)}}>
+                  Зробити рецепт
+                </button>
+                </div>
+                </div>
+                <hr style={{margin: '15px 0'}}/>
+              
+                <Table  striped bordered hover size="sm" >
                   <thead>
                     <tr>
-                      <th>product name</th>
-                      <th>measure</th>
-                      <th>quantity</th>
+                      <th>Назва продукту</th>
+                      <th>В чому вимірюється</th>
+                      <th>Кількість</th>
                       <th></th>
                     </tr>
                   </thead>

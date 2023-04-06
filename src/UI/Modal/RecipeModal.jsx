@@ -17,13 +17,13 @@ const RecipeModal = ({rShow, handleClose, recipe, setRecipe, addNewRecipe})=>{
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Створення рецепту частина 1</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Recipe name</Form.Label>
-                <Form.Control required type="text" name='recipe' placeholder="Enter recipe name" defaultValue={recipe.recipe}
+              <Form.Label>Назва рецепту</Form.Label>
+                <Form.Control required type="text" name='recipe' placeholder="Введіть назву рецепта" defaultValue={recipe.recipe}
                 onChange={(e) => setRecipe({...recipe, recipe: e.target.value})}
                 />
             </Form.Group>
@@ -32,9 +32,9 @@ const RecipeModal = ({rShow, handleClose, recipe, setRecipe, addNewRecipe})=>{
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Закрити
           </Button>
-          <Button variant="primary" onClick={(e)=>addNewRecipe(e)}>Add</Button>
+          <Button variant="primary" onClick={(e)=>addNewRecipe(e)}>Додати</Button>
         </Modal.Footer>
       </Modal>
 

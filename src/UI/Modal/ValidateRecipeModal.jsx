@@ -9,17 +9,19 @@ import Select from 'react-select';
 
 const ValidateRecipeModal=({vrShow, handleVRClose, validateProductRecipe})=>{
 
-    console.log("validateProductRecipe ", validateProductRecipe);
+//    console.log("validateProductRecipe ", validateProductRecipe);
 
     const validationResult=()=>{
-        if(validateProductRecipe!==null && validateProductRecipe.lenght > 0 ){
+        console.log("validateProductRecipe ", validateProductRecipe);
+
+        if(validateProductRecipe!==null && validateProductRecipe.length > 0 ){
             return(
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>quantity</th>
-                        <th>Measure</th>
+                        <th>Назва</th>
+                        <th>Кількість</th>
+                        <th>В чому вимірюється</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +38,7 @@ const ValidateRecipeModal=({vrShow, handleVRClose, validateProductRecipe})=>{
             )
         }else{
             return(
-                <div>You can make it</div>
+                <div>У вас вистачає продуктів для цього рецепту</div>
             )
 
         }

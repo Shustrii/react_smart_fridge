@@ -77,7 +77,7 @@ function Fridge(){
     const handleUpdate = (product) => {
       //console.log(product);
       setProduct(product);
-      handleShow(true);
+      handleShow();
     };
   
   
@@ -96,8 +96,8 @@ function Fridge(){
         setFridgeProducts(fridgeProducts.map(p => (p.fridge_id === product.fridge_id && p.product_id === product.product_id)? product : p));
         console.log("Updated products: ", updatedProduct.data);
       }
-      setShow(false);
-  }
+      handleClose();
+  };
   
     const onChangeProductSelect=(product)=>{
       console.log("Changed product ",product);
@@ -127,47 +127,68 @@ function Fridge(){
       console.log(response);
       setFridgeProducts(fridgeProducts.filter(p => p.product_id !== product.product_id));
     }
+
+    const[value, setValue] = useState('');
+    //console.log(fridgeProducts.filter(product => product.product_name.toLowerCase().includes('мо')))
+
     
   return(
     <div className="App">
 
-        <Button style={{marginTop: 30}} variant="primary" onClick={handleCreate}>
-                Add new product
+        <Button className='adding-button-top btn-add-top'  variant="" onClick={handleCreate}>
+                Додати новий продукт
         </Button>
+        
 
         <FridgeModal product={product} setProduct={setProduct} selectedMeasure={selectedMeasure} productsNotInFr={productsNotInFr} show={show} handleClose={handleClose} addProduct={addProduct} fridgeProducts={fridgeProducts} onChangeProductSelect={onChangeProductSelect}/>
+        <hr style={{margin: '15px 0'}}/>
+          <form className="seach-form">
+          <input 
+          type="text"
+          className="search"
+          placeholder='Пошук продукта'
+          onChange={(event)=>setValue(event.target.value)}
 
+          />
+        </form>
 
-        <Table striped bordered hover>
+        <Table bordered hover>
     <thead>
-            <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Measure</th>
+            <tr className='table'>
+                <th >Назва</th>
+                <th>Кількість</th>
+                <th>В чому вимірюється</th>
                 <th></th>
             </tr>
       </thead>
       <tbody>
-      {fridgeProducts.map((product)=>{
+      {fridgeProducts.filter(prod=> 
+      prod.product_name.toLowerCase().includes(value.toLowerCase())
+      ).map((product)=>{
         
                 return(
-                <tr key={product.product_id}>
+                <tr key={product.product_id} className='table-text'>
                     <td>{product.product_name}</td>
                     <td>{product.quantity}</td>
                     <td>{product.measure_name}</td>
-                    <td>
-                    <Button variant='primary' value={product.product_id}
+                    <td className='btn_group_table'>
+                    <div className="edit">
+                    <Button variant='' className='edit-button ed-btn' value={product.product_id}
                     onClick={() => {handleUpdate(product)}}
-                    >Edit</Button>
-                    <Button variant="secondary"
+                    >Редагувати</Button>
+                    </div>
+                    <div className="delete">
+                    <Button variant=""
+                    className="custom-btn btn-5"
                     onClick={()=>{deleteProduct(product)}}
-                    >Delete</Button>
+                    >Видалити</Button>
+                    </div>
                     </td>
                 </tr>
                 )})}
       </tbody>
     </Table>
-
+  
     </div>
   )
 }

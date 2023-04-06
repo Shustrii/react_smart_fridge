@@ -16,13 +16,13 @@ const ProductToRecipeModal = ({pShow, handlePClose, product, prNotInRecipe, sele
       keyboard={false}
       >
       <Modal.Header closeButton>
-              <Modal.Title>Modal title</Modal.Title>
+              <Modal.Title>Створення рецепту частина 2</Modal.Title>
           </Modal.Header>
               <Modal.Body>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Product name</Form.Label>
+                    <Form.Label>Назва продукту</Form.Label>
                     <Select
-                    aria-label="select product"
+                    aria-label="виберіть продукт"
                     value={(product.product_id!==0)?{product_id: product.product_id, product_name: product.product_name}:null}
                     options={prNotInRecipe}
                     getOptionValue={(option) => `${option['product_id']}`}
@@ -33,12 +33,12 @@ const ProductToRecipeModal = ({pShow, handlePClose, product, prNotInRecipe, sele
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Quantity</Form.Label>
-                    <Form.Control  type="number" name="productQuantity" placeholder="enter quantity" value={product.quantity}
+                    <Form.Label>Кількість</Form.Label>
+                    <Form.Control  type="number" name="productQuantity" placeholder="Введіть кількість" value={product.quantity}
                     onChange={(e) => setProduct({...product, quantity: e.target.value})}/>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Measure</Form.Label>
+                  <Form.Label>В чому вимірюється</Form.Label>
                   <Select 
                   aria-label="select measure" 
                   value={(product.measure_id!==0)?{id: product.measure_id, name: product.measure_name}:''}
@@ -56,9 +56,9 @@ const ProductToRecipeModal = ({pShow, handlePClose, product, prNotInRecipe, sele
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handlePClose}>
-                  click it if you done
+                  Натисніть, якщо закінчили додавати продукти
                 </Button>
-              <Button variant="primary" onClick={(e)=>addProduct(e)}>Add</Button>
+              <Button variant="primary" onClick={(e)=>addProduct(e)}>Додати</Button>
           </Modal.Footer>
       </Modal>
     

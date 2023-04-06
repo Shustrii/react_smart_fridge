@@ -10,20 +10,416 @@
     align-items: center;
 }
 
+main{
+    min-height: calc(100vh - 85px - 22px);
+    /* padding-top: 1.5rem;
+    padding-bottom: 1.5rem; */
+}
+
 .App {
-    width: 800px;
+    width: 100%; 
+    height: 100%;
+    
+   
+    
+}
+.img_start{
+    display: flex;
+    justify-content: center;
+}
+.seach-form{
+  margin-left: 10px;
+  height: 60px;
+}
+
+.search{
+  width:220px ;
+  padding:10px;
+  border-radius:10px;
 }
 
 header {
-    background-color: darkgray;
+    background-color: #708090;
     padding: 1rem 0;
-    height: 50px;
+    height: 90px;
     width: 100%;
     text-align: center;
+    top: 0px;
+    border:
+    1px
+    solid
+    #b9d322;
 }
 
-header>a{
+
+.Logo, .Top_menu{
+    display: inline-block;
+    margin-right:70px;
+    
+    
+}
+.edit, .delete{
+    display: inline-block;
+    margin-right:20px;
+}
+.add-prod, .make-rec{
+    display: inline-block;
+    margin-right:20px;
+}
+.Logo{
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    
+}
+.Top_menu{
+
+    border:
+    3px       /* width */
+    solid     /* style */
+    #b9d322; 
+    
+}
+
+.Top_menu a{
     color: white;
     text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
     padding: 0 1rem;    
+    position: relative;
+    display: inline-block;
+    margin-right: 30px;
+
+  border: thick solid #dfeb33;
+  border-radius: 20%;
+    
 }
+.Top_menu a:hover{
+    color:orange;
+}
+
+.adding-button-top{
+    width: 190px;
+    height: 40px;
+    color: #000000;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+    margin-top: 30px;
+}
+.btn-add-top{
+    width: 200px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    background: rgb(0, 255, 0);
+  background: linear-gradient(0deg, rgb(9, 255, 0) 0%, rgb(10, 251, 2) 100%);
+}
+.btn-add-top:hover {
+    color: #09f088;
+    background: transparent;
+     box-shadow:none;
+  }
+  .btn-add-top:before,
+  .btn-add-top:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #09f088;
+    box-shadow:
+     -1px -1px 5px 0px #fff,
+     7px 7px 20px 0px #0003,
+     4px 4px 5px 0px #0002;
+    transition:400ms ease all;
+  }
+  .btn-add-top:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .btn-add-top:hover:before,
+  .btn-add:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+
+.add-new-product-to-recipe{
+    width: 130px;
+    height: 40px;
+    color: #000000;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+}
+.btn-add{
+    width: 190px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    background: rgb(0, 255, 0);
+  background: linear-gradient(0deg, rgb(9, 255, 0) 0%, rgb(10, 251, 2) 100%);
+}
+.btn-add:hover {
+    color: #09f088;
+    background: transparent;
+     box-shadow:none;
+  }
+  .btn-add:before,
+  .btn-add:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #09f088;
+    box-shadow:
+     -1px -1px 5px 0px #fff,
+     7px 7px 20px 0px #0003,
+     4px 4px 5px 0px #0002;
+    transition:400ms ease all;
+  }
+  .btn-add:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .btn-add:hover:before,
+  .btn-add:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+
+
+
+.add_first_button{
+    margin-top: 30px;
+}
+.buttons_ptr_container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn_group_table{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.make-it{
+    width: 130px;
+    height: 40px;
+    color: #000000;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+}
+
+.btn-make{
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    background: rgb(64, 38, 217);
+  background: linear-gradient(0deg,  rgb(64, 38, 217) 0%,  rgb(64, 38, 217) 100%);
+  }
+  .btn-make:hover {
+    color: #2809f0;
+    background: transparent;
+     box-shadow:none;
+  }
+  .btn-make:before,
+  .btn-make:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1c09f0;
+    box-shadow:
+     -1px -1px 5px 0px #fff,
+     7px 7px 20px 0px #0003,
+     4px 4px 5px 0px #0002;
+    transition:400ms ease all;
+  }
+  .btn-make:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .btn-make:hover:before,
+  .btn-make:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+
+th{
+    color: rgb(20, 14, 94);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:20px;
+}
+.table-text td{
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:20px;
+}
+
+.edit-button{
+    width: 130px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgb(234, 252, 30),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+}
+.ed-btn {
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    background: rgb(234, 252, 30);
+  background: linear-gradient(0deg, rgb(234, 252, 30) 0%, rgb(234, 252, 30) 100%);
+  }
+  .ed-btn:hover {
+    color: #f4ff2a;
+    background: transparent;
+     box-shadow:none;
+  }
+  .ed-btn:before,
+  .ed-btn:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #97fc39;
+    box-shadow:
+     -1px -1px 5px 0px #fff,
+     7px 7px 20px 0px #0003,
+     4px 4px 5px 0px #0002;
+    transition:400ms ease all;
+  }
+  .ed-btn:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .ed-btn:hover:before,
+  .ed-btn:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+
+.custom-btn {
+    width: 130px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+  }
+  .btn-5 {
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    background: rgb(255,27,0);
+  background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
+  }
+  .btn-5:hover {
+    color: #f0094a;
+    background: transparent;
+     box-shadow:none;
+  }
+  .btn-5:before,
+  .btn-5:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #f0094a;
+    box-shadow:
+     -1px -1px 5px 0px #fff,
+     7px 7px 20px 0px #0003,
+     4px 4px 5px 0px #0002;
+    transition:400ms ease all;
+  }
+  .btn-5:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .btn-5:hover:before,
+  .btn-5:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }

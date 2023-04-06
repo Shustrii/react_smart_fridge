@@ -23,24 +23,24 @@ const ProductModal = ({product, setProduct, productTypes, measure, show, handleC
     return(
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Product</Modal.Title>
+                <Modal.Title>Додавання продукту</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Product name</Form.Label>
+                        <Form.Label>Назва продукту</Form.Label>
                         
-                        <Form.Control required name='name' type="text" placeholder="Enter name" defaultValue={product.name}
+                        <Form.Control required name='name' type="text" placeholder="Введіть назву" defaultValue={product.name}
                         onChange={(e) => setProduct({...product, name: e.target.value})}
                         />
 
                         <Form.Control.Feedback type="invalid">
-                        Please enter product name.
+                        Будь ласка, введіть назву продукта.
                         </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Product Type</Form.Label>
+                        <Form.Label>Тип продукту</Form.Label>
                         
                         <Form.Select required id="prtype" name='type' aria-label="Default select example" value={product.pr_type_id}
                         onChange={(e) =>{
@@ -57,7 +57,7 @@ const ProductModal = ({product, setProduct, productTypes, measure, show, handleC
                         //   console.log("Filter: ", results);
                         // }}
                         >
-                        <option value="">Choose product type</option>
+                        <option value="">Виберіть тип продукту</option>
                         {productTypes.map((type)=>{
                             return(
                                 <option key={type.id} value={type.id}> 
@@ -68,16 +68,16 @@ const ProductModal = ({product, setProduct, productTypes, measure, show, handleC
                         })}
                         </Form.Select>
                         <Form.Control.Feedback type="invalid">
-                        Please enter product type.
+                        Будь ласка виберіть тип продукту.
                         </Form.Control.Feedback>
                     </Form.Group>
 
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Закрити
                     </Button>
                     
                     <Button style={{marginLeft: 10}} variant="primary" type="submit" >
-                        Save
+                        Зберегти
                     </Button>
                 </Form>
             </Modal.Body>

@@ -79,42 +79,58 @@ function Products() {
     setMeasures(response.data);
   }
 
+  const[value, setValue] = useState('');
+
   return (
      <div className="App">
-      <Button style={{marginTop: 30}} variant="primary" onClick={handleCreate}>
-        Create Product
+      <Button className='adding-button-top btn-add-top'  variant="" onClick={handleCreate}>
+        Додати новий продукт
       </Button>
 
       <ProductModal product={product} setProduct={setProduct} productTypes={productTypes} measure={measure} show={show} handleClose={handleClose} addProduct={addProduct} />
 
       <hr style={{margin: '15px 0'}}/>
+      <form className="seach-form">
+        <input 
+        className="search"
+        type="text"
+        placeholder='Пошук продукта'
+        onChange={(event)=>setValue(event.target.value)}
+
+        />
+      </form>
 
       {/* <ProductList products={products} handleUpdate={handleUpdate} deleteProduct={deleteProduct} /> */}
 
-      <Table striped bordered hover>
+      <Table  bordered hover className="table-text">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Measure</th>
+                <th>Назва</th>
+                <th>Тип</th>
+                <th>в чому вимірюється</th>
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-                {products.map((product)=>{
+            <tbody >
+                {products.filter(prod=>prod.name.toLowerCase().includes(value.toLowerCase())).map((product)=>{
                 return(
                 <tr key={product.id}>
                     <td>{product.name}</td>
                     <td>{product.prtName}</td>
                     <td>{product.measureName}</td>
-                    <td>
-                    <Button variant='primary' value={product.id}  
-                    
+                    <td className="btn_group_table">
+                    <div className="edit">
+                    <Button variant='' value={product.id}  
                     onClick={() => {handleUpdate(product)}}
+                    className="edit-button ed-btn"
                     >Edit</Button>
-                    <Button variant="secondary"
+                    </div>
+                    <div className="delete">
+                    <Button variant=""
+                    className="custom-btn btn-5"
                     onClick={() => {deleteProduct(product)}}
                     >Delete</Button>
+                    </div>
                     </td>
                 </tr>
                 )})}
