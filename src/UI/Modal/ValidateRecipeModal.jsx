@@ -1,11 +1,8 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
-import Select from 'react-select';
 
 const ValidateRecipeModal=({vrShow, handleVRClose, validateProductRecipe})=>{
 
@@ -21,7 +18,7 @@ const ValidateRecipeModal=({vrShow, handleVRClose, validateProductRecipe})=>{
 						<tr>
 							<th>Назва</th>
 							<th>Кількість</th>
-							<th>В чому вимірюється</th>
+							<th>Одиниця виміру</th>
 						</tr>
 					</thead>
 					<tbody>

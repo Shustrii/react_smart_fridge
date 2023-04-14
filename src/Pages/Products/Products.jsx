@@ -1,11 +1,10 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import '../styles/App.css';
 import { useState, useEffect } from 'react';
 
-import ProductService from '../API/ProductService';
-import ProductModal from '../UI/Modal/ProductModal';
+import ProductService from '../../API/ProductService';
+import ProductModal from '../../UI/Modal/ProductModal';
+import ProductTable from './Components/ProductTable';
 
 function Products() {
 	const emptyProduct = {id: 0, name: '', pr_type_id: 0, prtName: '', measureName: ''};
@@ -102,41 +101,7 @@ function Products() {
 			</form>
 
 			{/* <ProductList products={products} handleUpdate={handleUpdate} deleteProduct={deleteProduct} /> */}
-
-			<Table  bordered hover className='table-text'>
-				<thead>
-					<tr>
-						<th>Назва</th>
-						<th>Тип</th>
-						<th>в чому вимірюється</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody >
-					{products.filter(prod=>prod.name.toLowerCase().includes(value.toLowerCase())).map((product)=>{
-						return(
-							<tr key={product.id}>
-								<td>{product.name}</td>
-								<td>{product.prtName}</td>
-								<td>{product.measureName}</td>
-								<td className='btn_group_table'>
-									<div className='edit'>
-										<Button variant='' value={product.id}  
-											onClick={() => {handleUpdate(product);}}
-											className='edit-button ed-btn'
-										>Edit</Button>
-									</div>
-									<div className='delete'>
-										<Button variant=''
-											className='custom-btn btn-5'
-											onClick={() => {deleteProduct(product);}}
-										>Delete</Button>
-									</div>
-								</td>
-							</tr>
-						);})}
-				</tbody>
-			</Table>
+			<ProductTable products={products} value={value} handleUpdate={handleUpdate} deleteProduct={deleteProduct}/>
 		</div>
 	);
 }

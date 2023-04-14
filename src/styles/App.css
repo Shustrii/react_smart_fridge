@@ -260,8 +260,8 @@ header {
     line-height: 42px;
     padding: 0;
     border: none;
-    background: rgb(64, 38, 217);
-  background: linear-gradient(0deg,  rgb(64, 38, 217) 0%,  rgb(64, 38, 217) 100%);
+    background: rgb(90, 61, 251);
+  background: linear-gradient(0deg, rgb(90, 61, 251) 0%,  rgb(90, 61, 251) 100%);
   }
   .btn-make:hover {
     color: #2809f0;

@@ -27,7 +27,7 @@ const ProductModal = ({product, setProduct, productTypes, measure, show, handleC
 			</Modal.Header>
 			<Modal.Body>
 				<Form noValidate validated={validated} onSubmit={handleSubmit}>
-					<Form.Group className='mb-3' controlId='formBasicEmail'>
+					<Form.Group className='mb-3'>
 						<Form.Label>Назва продукту</Form.Label>
                         
 						<Form.Control required name='name' type='text' 
@@ -53,7 +53,7 @@ const ProductModal = ({product, setProduct, productTypes, measure, show, handleC
 								const measureName = measure.filter(measure => 
 									measure.id === parseInt(e.target.value)).map((measure)=>{return(measure.name);}).toString();
 								setProduct({...product, pr_type_id: parseInt(e.target.value), 
-									prtName: prtName, measureName:measureName}
+									prtName: prtName, measureName:measureName},
 								);}}      
 							//для product to recipe
 							// onChange={(e)=>{

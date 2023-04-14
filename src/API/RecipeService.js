@@ -11,6 +11,7 @@ const EDIT_PRODUCT_URL = 'http://localhost:8080/fridge/v1/product_in_recipe_upda
 const DELETE_PRODUCT_URL = 'http://localhost:8080/fridge/v1/delete_product_from_recipe';
 const DELETE_RECIPE_URL = 'http://localhost:8080/fridge/v1/delete_recipe';
 const VALIDATE_RECIPE_URL = 'http://localhost:8080/fridge/v1/validate_recipe';
+const GET_ALL_READY_RECIPES = 'http://localhost:8080/fridge/v1/all/ready_recipes';
 
 
 
@@ -81,6 +82,11 @@ export default class RecipeService{
 
 	static async validateRecipe(recipe){
 		const response = await axios.get(VALIDATE_RECIPE_URL +'/'+ recipe.id);
+		return response;
+	}
+
+	static async getAllReadyRecipes(){
+		const response = await axios.get(GET_ALL_READY_RECIPES);
 		return response;
 	}
 

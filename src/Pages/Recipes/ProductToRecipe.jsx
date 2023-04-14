@@ -1,18 +1,22 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react';
 
-import ProductToRecipeModal from '../UI/Modal/ProductToRecipeModal';
-import RecipeService from '../API/RecipeService';
-import RecipeModal from '../UI/Modal/RecipeModal';
-import ValidateRecipeModal from '../UI/Modal/ValidateRecipeModal';
+//import ProductToRecipeModal from '../../UI/Modal/ProductToRecipeModal';
+import RecipeService from '../../API/RecipeService';
+import RecipeModal from '../../UI/Modal/RecipeModal';
+import ValidateRecipeModal from '../../UI/Modal/ValidateRecipeModal';
+import ProductList from '../../UI/List/ProdcutList';
+import ProductInserter from './Components/ProductInserter';
+import RecipeModifire from './Components/RecipeModifire';
+import ProductInputModal from '../../UI/Modal/ProductInputModal';
+import { Form } from 'react-bootstrap';
 
 function ProductToRecipe(){
 
 	const emptyRecipe = {id: 0, recipe:''};
-	const emptyProduct = {recipes_id:0, product_id:0, measure_id:0,quantity:0, name: '', pr_type_id: 0, prtName: '', measure_name: '' };
+	const emptyProduct = {id:0, recipes_id:0, product_id:0, measure_id:0,quantity:0, name: '', pr_type_id: 0, prtName: '', measure_name: '' };
 	const [rShow, setrShow] = useState(false);
 	const [pShow, setpShow] = useState(false);
 	const [vrShow, setvrShow] = useState(false);
@@ -82,6 +86,7 @@ function ProductToRecipe(){
 			});
     
 			//update recipes
+			setRecipe(recipe);
 			setRecipes(list);
 		}
 	}
@@ -90,6 +95,19 @@ function ProductToRecipe(){
 		const response = await RecipeService.getMeasures();
 		console.log('AllMeasures: ', response.data);
 		setMeasures(response.data);
+	}
+
+	async function getAllReadyRecipes(e){
+		const response = await RecipeService.getAllReadyRecipes();
+		console.log('getAllReadyRecipes: ', response.data);
+		console.log('e : ', e);
+		if (e.target.checked){
+			setRecipes(response.data);
+		}
+		else{
+			getAllRecipes();
+		}
+
 	}
     
 	useEffect(()=>{
@@ -141,9 +159,9 @@ function ProductToRecipe(){
 		setrShow(false);
 	};
     
-	const onChangeProductSelect=(product)=>{
+	const onChangeProductSelect=(prod)=>{
 		console.log('Changed product ',product);
-		setProduct({...product, product_id: product.product_id, product_name: product.product_name});
+		setProduct({...product, product_id: prod.product_id, product_name: prod.product_name, measure_id: prod.measure_id});
 	}; 
     
 	const handleUpdate = (product) => {
@@ -152,10 +170,7 @@ function ProductToRecipe(){
 		handlePShow(true);
 	};
     
-	const handleRecipeUpdate= (recipe)=>{
-		setRecipe(recipe);
-		handleShow(true);
-	};
+
     
 	const addProduct= async (e)=>{
 		e.preventDefault();
@@ -196,46 +211,8 @@ function ProductToRecipe(){
     
 	};
     
-	const deleteRecipe = async(recipe)=>{
-		console.log('Recipe do delete', recipe);
-		const response = await RecipeService.deleteRecipe(recipe);
-		console.log(response);
-		setRecipes(recipes.filter(r=> r.id!== recipe.id));
-	};
-
-      
 
 
-	function BodyData({recipe}){
-		const list = allProducts.filter(p=> p.recipes_id === recipe.id);
-		//console.log("filter -> recipe: ", recipe); 
-		//console.log("filter -> filter: ", list); 
-        
-		return list.map((product)=>{
-			//console.log("item -> ", product);
-			return(
-				<tr key={product.product_id}>
-					<td>{product.product_name}</td>
-					<td>{product.measure_name}</td>
-					<td>{product.quantity}</td>
-					<td className='btn_group_table'>
-						<div className='edit'>
-							<Button variant=''
-								className='edit-button ed-btn'
-								onClick={() => {handleUpdate(product);}}
-							>Редагувати</Button>
-						</div>
-						<div className='delete'>
-							<Button variant=''
-								className='custom-btn btn-5'
-								onClick={()=>{deleteProduct(product);}}
-							>Видалити</Button>
-						</div>
-					</td>
-				</tr>
-			);
-		});
-	}
 
 
 	const[value, setValue] = useState('');
@@ -257,62 +234,45 @@ function ProductToRecipe(){
 
 				/>
 			</form>
-			<ProductToRecipeModal pShow={pShow} handlePClose={handlePClose} product={product} prNotInRecipe={prNotInRecipe} selectedMeasure={selectedMeasure} setProduct={setProduct} onChangeProductSelect={onChangeProductSelect} addProduct={addProduct}/>
+			<form>
+				<Form.Check 
+					type='switch'
+					id='custom-switch'
+					label='Що можна зробити з наявних продуктів?'
+					onClick={(e)=> getAllReadyRecipes(e)}
+					//onClick={(e)=> getAllReadyRecipes(e)}
+				/>
+			</form>
+			{/* <ProductToRecipeModal pShow={pShow} handlePClose={handlePClose} product={product} prNotInRecipe={prNotInRecipe} selectedMeasure={selectedMeasure} setProduct={setProduct} onChangeProductSelect={onChangeProductSelect} addProduct={addProduct}/> */}
+			<ProductInputModal 
+				header='Створення рецепту частина 2'
+				show={pShow} handleClose={handlePClose} product={product} productsList={prNotInRecipe} 
+				selectedMeasure={selectedMeasure} setProduct={setProduct} 
+				onChangeProductSelect={onChangeProductSelect} addProduct={addProduct}/>
+
 			<RecipeModal rShow={rShow} handleClose={handleClose} recipe={recipe} setRecipe={setRecipe} addNewRecipe={addNewRecipe}/>
 			<ValidateRecipeModal vrShow={vrShow} handleVRClose={handleVRClose} validateProductRecipe={validateProductRecipe}/>
+			
 			<Accordion >
 				{recipes.filter(recip=> recip.recipe.toLowerCase().includes(value.toLowerCase())).map((recipe)=>{
 					return(
 						<Accordion.Item  eventKey={recipe.id} key={recipe.id} >
 							<Accordion.Header >
-								<div className='recipe-name'>{recipe.recipe}</div>
-								<div className='buttons_ptr_container'>
-									<div className='edit'>
-										<Button className='edit-button ed-btn' variant=''
-											onClick={() => {handleRecipeUpdate(recipe);}}
-										>Редагувати</Button>
-									</div>
-									<div className='delete'>
-										<Button variant=''
-											onClick={()=>{deleteRecipe(recipe);}}
-											className='custom-btn btn-5'
-										>Видалити</Button>
-									</div>
-                
-								</div>
 
-                
-                
+								<RecipeModifire recipe={recipe} recipes={recipes} setRecipe={setRecipe} setRecipes={setRecipes} handleShow={handleShow}/>
 
 							</Accordion.Header>            
 							<Accordion.Body onEnter={() => {getAllProducts(recipe);}} >
-								<div className=''>
-									<div className='add-prod'>
-										<button className='add-new-product-to-recipe btn-add' onClick={() => handleProductInsert(recipe)}>
-                  Додати новий продукт
-										</button>
-									</div>
-									<div className='make-rec'>
-										<button className='make-it btn-make' onClick={()=>{validateRecipe(recipe);}}>
-                  Зробити рецепт
-										</button>
-									</div>
-								</div>
+
+								<ProductInserter recipe={recipe} handleProductInsert={handleProductInsert} validateRecipe={validateRecipe}/>
+								
 								<hr style={{margin: '15px 0'}}/>
               
-								<Table  striped bordered hover size='sm' >
-									<thead>
-										<tr>
-											<th>Назва продукту</th>
-											<th>В чому вимірюється</th>
-											<th>Кількість</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										<BodyData recipe={recipe}/>
-									</tbody>
-								</Table>
+								<ProductList 
+									products={allProducts.filter(p=> p.recipes_id === recipe.id)}
+									value={value}
+									handleUpdate={handleUpdate}
+									deleteProduct={deleteProduct}/>
 							</Accordion.Body>
 						</Accordion.Item>
 					);})

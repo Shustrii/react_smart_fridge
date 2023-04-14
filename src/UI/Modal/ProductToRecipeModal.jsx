@@ -2,10 +2,12 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import Select from 'react-select';
+//import Select from 'react-select';
+import SelectItem from '../SelectItem/SelectItem';
+import { measureProps, productProps } from './ProductInputModal';
 
-const ProductToRecipeModal = ({pShow, handlePClose, product, prNotInRecipe, selectedMeasure, setProduct, onChangeProductSelect,addProduct })=>{
-
+const ProductToRecipeModal_ = ({product, setProduct, pShow, prNotInRecipe, selectedMeasure, handlePClose, onChangeProductSelect, addProduct })=>{
+//const FridgeModal = ({product, setProduct, show, productsNotInFr, selectedMeasure, handleClose, addProduct, onChangeProductSelect})=>{
 
 	return(
 
@@ -19,7 +21,7 @@ const ProductToRecipeModal = ({pShow, handlePClose, product, prNotInRecipe, sele
 				<Modal.Title>Створення рецепту частина 2</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<Form.Group className='mb-3' controlId='formBasicEmail'>
+				{/* <Form.Group className='mb-3' controlId='formBasicEmail'>
 					<Form.Label>Назва продукту</Form.Label>
 					<Select
 						aria-label='виберіть продукт'
@@ -31,13 +33,25 @@ const ProductToRecipeModal = ({pShow, handlePClose, product, prNotInRecipe, sele
 							console.log('change product ',e);
 							onChangeProductSelect(e);}}
 					/>
-				</Form.Group>
+				</Form.Group> */}
+				<SelectItem 
+					lable={'Назва продукту'}
+					invalidMsg={'Будь ласка, введіть назву продукта.'}
+					value={{product_id: product.product_id, product_name: product.product_name}	}
+					defaultValue={product ? product.product_name : ''}
+					options={prNotInRecipe}
+					optionData={productProps} 
+					changeData={(e) => {
+						//console.log('change measure ',e);
+						onChangeProductSelect(e);
+					}}
+				/>
 				<Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
 					<Form.Label>Кількість</Form.Label>
 					<Form.Control  type='number' name='productQuantity' placeholder='Введіть кількість' value={product.quantity}
 						onChange={(e) => setProduct({...product, quantity: e.target.value})}/>
 				</Form.Group>
-				<Form.Group>
+				{/* <Form.Group>
 					<Form.Label title='В чому вимірюється' />
 					<Select 
 						aria-label='select measure' 
@@ -52,7 +66,21 @@ const ProductToRecipeModal = ({pShow, handlePClose, product, prNotInRecipe, sele
 							});
 						}}
 					/>
-				</Form.Group>
+				</Form.Group> */}
+				<SelectItem 
+					lable={'Одиниця виміру'}
+					invalidMsg={'Будь ласка, введіть одиницю виміру.'}
+					value={{id: product.measure_id, name: product.measure_name}}
+					defaultValue={product ? product.measure_name : ''}
+					options={selectedMeasure}
+					optionData={measureProps} 
+					changeData={(e) => {
+						//console.log('change measure ',e);
+						setProduct({
+							...product, measure_id: e.id, measure_name: e.name, 
+						});
+					}}
+				/>
 			</Modal.Body>
 			<Modal.Footer>
 				<Button variant='secondary' onClick={handlePClose}>
@@ -65,4 +93,4 @@ const ProductToRecipeModal = ({pShow, handlePClose, product, prNotInRecipe, sele
 	);
 };
 
-export default ProductToRecipeModal;
+export default ProductToRecipeModal_;

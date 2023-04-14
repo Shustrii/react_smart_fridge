@@ -28,9 +28,7 @@ const RecipeModal = ({rShow, handleClose, recipe, setRecipe, addNewRecipe})=>{
             
 			</Modal.Body>
 			<Modal.Footer>
-				<Button variant='secondary' onClick={handleClose}>
-            Закрити
-				</Button>
+				<Button variant='secondary' onClick={handleClose}>Закрити</Button>
 				<Button variant='primary' onClick={(e)=>addNewRecipe(e)}>Додати</Button>
 			</Modal.Footer>
 		</Modal>

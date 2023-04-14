@@ -1,10 +1,11 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import fridgeClose from '../img/fridge_close.png';
 import fridgeOpen from '../img/fridge_open.png';
 
-function HomePage() {
+function DefaultPage() {
 	const [fridge, setFridge] = useState(fridgeClose);
 
 	return (
@@ -20,4 +21,4 @@ function HomePage() {
 		</div>
 	);
 }
-export default HomePage;
+export default DefaultPage;

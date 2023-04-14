@@ -1,13 +1,10 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-//import '../../styles/App.css';
-import ProductItem from '../Item/ProductItem';
+import ProductItem from '../../../UI/Item/ProductItem';
 
+const FridgeProductTable = ({fridgeProducts, value, handleUpdate, deleteProduct})=>{
 
-const ProductList = ({products, value, handleUpdate, deleteProduct}) =>{
-
-	return (
-
+	return(
 		<Table bordered hover>
 			<thead>
 				<tr className='table'>
@@ -18,11 +15,11 @@ const ProductList = ({products, value, handleUpdate, deleteProduct}) =>{
 				</tr>
 			</thead>
 			<tbody>
-				{products.filter(prod=> 
+				{fridgeProducts.filter(prod=> 
 					prod.product_name.toLowerCase().includes(value.toLowerCase()),
 				).map((product)=>{
 					return(
-						<ProductItem
+						<ProductItem 
 							key={product.product_id}
 							product={product} 
 							handleUpdate={handleUpdate} 
@@ -34,4 +31,6 @@ const ProductList = ({products, value, handleUpdate, deleteProduct}) =>{
 	);
 };
 
-export default ProductList;
+export default FridgeProductTable;
+
+	

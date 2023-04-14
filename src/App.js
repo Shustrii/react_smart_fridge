@@ -1,11 +1,11 @@
 import React from 'react';
-import {Routes, Route, Link} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
-import ProductToRecipe from './Pages/ProductToRecipe';
-import Products from './Pages/Products';
-import Fridge from './Pages/Fridge';
+import ProductToRecipe from './Pages/Recipes/ProductToRecipe';
+import Products from './Pages/Products/Products';
+import Fridge from './Pages/Fridge/Fridge';
 import Navbar from './Pages/Navbar';
-import HomePage from './Pages/HomePage';
+import DefaultPage from './Pages/DefaultPage';
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
       
 				<Route path='/' element={<Navbar/>}>
           
-					<Route index element={<HomePage/>}/>
+					<Route index element={<DefaultPage/>}/>
           
 					<Route path='/products' element={<Products/>}/>
 					<Route path='/recipes' element={<ProductToRecipe/>}/>

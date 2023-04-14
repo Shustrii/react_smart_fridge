@@ -1,24 +1,27 @@
 import React from 'react';
-import '../styles/App.css';
+import '../../styles/App.css';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
 
 
-import FridgeService from '../API/FridgeService';
-import FridgeModal from '../UI/Modal/FridgeModal';
+
+import FridgeService from '../../API/FridgeService';
+import ProductInputModal from '../../UI/Modal/ProductInputModal';
+//import FridgeProductTable from './Components/FridgeProductTable';
+import ProductList from '../../UI/List/ProdcutList';
+
 
 function Fridge(){
 
 
-	const emptyProduct = {fridge_id: 0, product_id: 0, product_name: '', quantity: 0, measure_id: 0, measure_name: ''};
+	const emptyProduct = {id:0, fridge_id: 0, product_id: 0, product_name: '', quantity: 0, measure_id: 0, measure_name: ''};
 	const [show, setShow] = useState(false);
 	const [product, setProduct] = useState(emptyProduct);
 	const [fridgeProducts, setFridgeProducts] =  useState([]);
 	const [measure, setMeasures] = useState([]);
 	const [selectedMeasure, setSelectedMeasure] = useState([]);
 	const [productsNotInFr, setProductsNotInFr] = useState([]);
-	//const [value, setValue]= useState('');
+	const [value, setValue]= useState('');
   
   
 	const handleClose = () => setShow(false);
@@ -26,7 +29,7 @@ function Fridge(){
   
 	useEffect(()=>{
 		const fetchData = async ()=>{
-			console.log('useEffect -> init');
+			//console.log('useEffect -> init');
 			try {
 				getAllProducts();
 				getAllMeasures(); 
@@ -86,8 +89,8 @@ function Fridge(){
 		if(product.fridge_id === 0){
 			const insertData = {...product, fridge_id: 1};
 			const newProduct = await FridgeService.addProduct(insertData);
-			console.log('New Product', newProduct);
-			setFridgeProducts([...fridgeProducts, insertData.fridge_id]);
+			console.log('New Product', newProduct.data);
+			setFridgeProducts([...fridgeProducts, newProduct.data]);
 		}else{
 			const updatedProduct = await FridgeService.editProduct(product);
 			console.log('Updated Product', updatedProduct);
@@ -98,9 +101,9 @@ function Fridge(){
 		handleClose();
 	};
   
-	const onChangeProductSelect=(product)=>{
-		console.log('Changed product ',product);
-		setProduct({...product, product_id: product.product_id, product_name: product.product_name});
+	const onChangeProductSelect=(prod)=>{
+		console.log('Changed product ', prod);
+		setProduct({...product, product_id: prod.product_id, product_name: prod.product_name, measure_id: prod.measure_id});
 	}; 
   
 	async function getAllProducts() {
@@ -127,8 +130,7 @@ function Fridge(){
 		setFridgeProducts(fridgeProducts.filter(p => p.product_id !== product.product_id));
 	};
 
-	const[value, setValue] = useState('');
-	//console.log(fridgeProducts.filter(product => product.product_name.toLowerCase().includes('мо')))
+	//const[value, setValue] = useState('');
 
     
 	return(
@@ -138,56 +140,26 @@ function Fridge(){
                 Додати новий продукт
 			</Button>
         
-
-			<FridgeModal product={product} setProduct={setProduct} selectedMeasure={selectedMeasure} productsNotInFr={productsNotInFr} show={show} handleClose={handleClose} addProduct={addProduct} fridgeProducts={fridgeProducts} onChangeProductSelect={onChangeProductSelect}/>
+			<ProductInputModal 
+				header='Додавання продукту у холодильник'
+				product={product} setProduct={setProduct} selectedMeasure={selectedMeasure} 
+				productsList={productsNotInFr} show={show} handleClose={handleClose} 
+				addProduct={addProduct} fridgeProducts={fridgeProducts} 
+				onChangeProductSelect={onChangeProductSelect}/>
+		
 			<hr style={{margin: '15px 0'}}/>
+		
 			<form className='seach-form'>
 				<input 
 					type='text'
 					className='search'
 					placeholder='Пошук продукта'
 					onChange={(event)=>setValue(event.target.value)}
-
 				/>
 			</form>
 
-			<Table bordered hover>
-				<thead>
-					<tr className='table'>
-						<th >Назва</th>
-						<th>Кількість</th>
-						<th>В чому вимірюється</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{fridgeProducts.filter(prod=> 
-						prod.product_name.toLowerCase().includes(value.toLowerCase())
-					).map((product)=>{
-        
-						return(
-							<tr key={product.product_id} className='table-text'>
-								<td>{product.product_name}</td>
-								<td>{product.quantity}</td>
-								<td>{product.measure_name}</td>
-								<td className='btn_group_table'>
-									<div className='edit'>
-										<Button variant='' className='edit-button ed-btn' value={product.product_id}
-											onClick={() => {handleUpdate(product);}}
-										>Редагувати</Button>
-									</div>
-									<div className='delete'>
-										<Button variant=''
-											className='custom-btn btn-5'
-											onClick={()=>{deleteProduct(product);}}
-										>Видалити</Button>
-									</div>
-								</td>
-							</tr>
-						);})}
-				</tbody>
-			</Table>
-  
+			<ProductList products={fridgeProducts} value={value} handleUpdate={handleUpdate} deleteProduct={deleteProduct}/>
+		
 		</div>
 	);
 }
