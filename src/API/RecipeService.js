@@ -1,17 +1,21 @@
 import axios from 'axios';
 
-const GET_ALL_RECIPES_URL = 'http://localhost:8080/fridge/v1/all/recipes';
-const EDIT_RECIPE_URL = 'http://localhost:8080/fridge/v1/recipe_update';
-const GET_ALL_PRODUCTS_URL = 'http://localhost:8080/fridge/v1/products_to_recipe';
-const ADD_NEW_RECIPE_URL = 'http://localhost:8080/fridge/v1/add/recipe';
-const GET_PRODUCTS_NOT_IN_RECIPE_URL = 'http://localhost:8080/fridge/v1/product_not_in_recipe';
-const All_Measures_URL = 'http://localhost:8080/fridge/v1/all_measures';
-const ADD_PRODUCT_IN_RECIPE_URL = 'http://localhost:8080/fridge/v1/save/product';
-const EDIT_PRODUCT_URL = 'http://localhost:8080/fridge/v1/product_in_recipe_update';
-const DELETE_PRODUCT_URL = 'http://localhost:8080/fridge/v1/delete_product_from_recipe';
-const DELETE_RECIPE_URL = 'http://localhost:8080/fridge/v1/delete_recipe';
+const GET_ALL_RECIPES_URL = 'http://localhost:8080/fridge/v1/recipes';
+
+const GET_PRODUCTS_NOT_IN_RECIPE_URL = 'http://localhost:8080/fridge/v1/not_in_recipe';
+const All_Measures_URL = 'http://localhost:8080/fridge/v1/measures';
+
+const RECIPE_URL = 'http://localhost:8080/fridge/v1/add/recipe';
+//const EDIT_RECIPE_URL = 'http://localhost:8080/fridge/v1/recipe_update';
+//const DELETE_RECIPE_URL = 'http://localhost:8080/fridge/v1/delete_recipe';
+
+const GET_ALL_PRODUCTS_URL = 'http://localhost:8080/fridge/v1/products_in_recipe';
+const PRODUCT_IN_RECIPE_URL = 'http://localhost:8080/fridge/v1/product_in_recipe';
+//const EDIT_PRODUCT_URL = 'http://localhost:8080/fridge/v1/product_in_recipe_update';
+//const DELETE_PRODUCT_URL = 'http://localhost:8080/fridge/v1/delete_product_from_recipe';
+
 const VALIDATE_RECIPE_URL = 'http://localhost:8080/fridge/v1/validate_recipe';
-const GET_ALL_READY_RECIPES = 'http://localhost:8080/fridge/v1/all/ready_recipes';
+const GET_ALL_READY_RECIPES = 'http://localhost:8080/fridge/v1/ready_recipes';
 
 
 
@@ -29,14 +33,19 @@ export default class RecipeService{
 		return response;
 	}
 
+	static async addNewRecipe(recipe){
+		const response = axios.post(RECIPE_URL, recipe);
+		return response;
+	}
+
 	static async editRecipe(recipe){
-		const response = axios.put(EDIT_RECIPE_URL, recipe);
+		const response = axios.put(RECIPE_URL, recipe);
 		return response;    
 	}
 
 	static async deleteRecipe(recipe){
 		config.data = recipe;
-		const response = await axios.delete(DELETE_RECIPE_URL, config);
+		const response = await axios.delete(RECIPE_URL, config);
 		return response;
 	}
 
@@ -46,12 +55,7 @@ export default class RecipeService{
 		return response;
 	}
 
-	static async addNewRecipe(recipe){
-		const response = axios.post(ADD_NEW_RECIPE_URL, recipe);
-		return response;
-	}
 
-    
 	static async getPrNotInRecipe(recipe){
         
 		const response = axios.get(GET_PRODUCTS_NOT_IN_RECIPE_URL + '/' + recipe.id);
@@ -64,19 +68,19 @@ export default class RecipeService{
 	}
 
 	static async addProduct(product){
-		const response = axios.post(ADD_PRODUCT_IN_RECIPE_URL, product);
+		const response = axios.post(PRODUCT_IN_RECIPE_URL, product);
 		return response;
 	}
 
 	static async editProduct(product){
-		const response = await axios.put(EDIT_PRODUCT_URL, product);
+		const response = await axios.put(PRODUCT_IN_RECIPE_URL, product);
 		return response;
 
 	}
 
 	static async deleteProduct(product){
 		config.data = product;
-		const response = await axios.delete(DELETE_PRODUCT_URL, config);
+		const response = await axios.delete(PRODUCT_IN_RECIPE_URL, config);
 		return response;
 	}
 

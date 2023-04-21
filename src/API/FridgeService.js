@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 
-const ALL_FRIDGE_PRODUCTS_URL = 'http://localhost:8080/fridge/v1/all/products';
-const All_Measures_URL = 'http://localhost:8080/fridge/v1/all_measures';
+const ALL_FRIDGE_PRODUCTS_URL = 'http://localhost:8080/fridge/v1/fridge_products';
+const All_Measures_URL = 'http://localhost:8080/fridge/v1/measures';
 const NOT_IN_FRIDGE_PRODUCTS_URL = 'http://localhost:8080/fridge/v1/not_in_fridge';
-const ADD_PRODUCT_URL = 'http://localhost:8080/fridge/v1/save/fridge';
-const Edit_Product_URL = 'http://localhost:8080/fridge/v1/product_quantity_update';
-const Delete_Product_URL = 'http://localhost:8080/fridge/v1/delete_product_from_fridge';
+const FRIDGE_PRODUCT_URL = 'http://localhost:8080/fridge/v1/fridge_product';
+//const Edit_Product_URL = 'http://localhost:8080/fridge/v1/product_quantity_update';
+//const Delete_Product_URL = 'http://localhost:8080/fridge/v1/delete_product_from_fridge';
 
 
 const config = {
@@ -35,23 +35,20 @@ export default class FridgeService{
 
 	static async addProduct(product) {
         
-		const response = await axios.post(ADD_PRODUCT_URL, product);
+		const response = await axios.post(FRIDGE_PRODUCT_URL, product);
 		return response;
 	}
 
 	static async editProduct(product){
 		//const response = await axios.put(Edit_Product_URL+"/"+product.product_id);
-		const response = await axios.put(Edit_Product_URL, product);
+		const response = await axios.put(FRIDGE_PRODUCT_URL, product);
 		return response;
 	}
     
 	static async deleteProduct(product){
 		config.data = product;
-		const response = await axios.delete(Delete_Product_URL, config);
+		const response = await axios.delete(FRIDGE_PRODUCT_URL, config);
 		return response;
 	}
-
-    
-
 
 }
